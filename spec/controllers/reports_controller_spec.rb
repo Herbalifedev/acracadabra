@@ -8,13 +8,23 @@ describe ReportsController do
   context 'given a report' do
 
     before do
-      post :create, ANDROID_VERSION: "2.1", APP_PACKAGE: "com.drivescribe"
+      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("username:password")
+      #post :create, ANDROID_VERSION: "2.1", APP_PACKAGE: "com.drivescribe"
+      post 'create', {report: {PHONE_MODEL: 'rspec'}}, :format => 'json'
     end
 
     it 'responds with successful HTTP status' do
-      response.should be_success
+      response.status.should eq(201)
     end
 
+  end
+
+  context 'GET charts' do
+    it 'returns http success' do
+      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("username:password")
+      visit 'charts'
+      response.status.should eq(200)
+    end
   end
 
 end

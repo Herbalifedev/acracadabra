@@ -1,12 +1,17 @@
 Acrar::Application.routes.draw do
 
+  get "reports/charts"
+
   # Once you've completed your testing, comment out this line:
-  root :to => 'welcome#home'
+  # root :to => 'welcome#home'
   # and uncomment out the following line to return a 404 in production
   # root :to => 'welcome#not_found'
+  root :to => 'reports#charts'
 
   match 'reports' => 'reports#create', via: :post
-  
+
+  match 'reports' => 'reports#index', via: :get
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
