@@ -1,0 +1,13 @@
+<h1 class="center">Android Crash Report charts</h1>
+
+<h3>By phone models</h3>
+<%= pie_chart @per_phone_model %>
+
+<h3>By Hour</h3>
+<%= column_chart @per_hour %>
+
+<h3>By Day</h3>
+<%= line_chart @per_date %>
+
+<h3>By Month</h3>
+<%= bar_chart @per_month %>

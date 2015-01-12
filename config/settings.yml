@@ -1,6 +1,8 @@
 defaults: &defaults
   from_address: <%= ENV['FROM_ADDRESS'] %>
   recipients: <%= ENV['RECIPIENTS'] %>
+  http_basic_auth_name: <%= ENV['HTTP_BASIC_AUTH_NAME'] %>
+  http_basic_auth_password: <%= ENV['HTTP_BASIC_AUTH_PASSWORD'] %>
 
 development:
   <<: *defaults

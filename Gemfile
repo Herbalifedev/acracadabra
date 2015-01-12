@@ -1,21 +1,32 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'choices'
+gem 'choices', '0.4.0'
 gem 'haml-rails'
 gem 'jquery-rails', '2.1.3'
 gem 'thin'
 gem 'bootstrap-sass', '2.0.4'
+gem 'dotenv-rails'
+gem 'will_paginate'
+gem 'chartkick'
+gem 'groupdate'
+gem 'therubyracer', :require => 'v8'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.11.0'
-  gem 'foreman'
+  #gem 'foreman'
   gem 'capybara'
+  gem 'sqlite3', '1.3.5'
+  gem 'shotgun'
+end
+
+group :test do
+  gem 'shoulda-matchers'
 end
 
 group :production do
   gem 'pg', '0.14.1'
+  gem 'unicorn'
 end
 
 # Gems used only for assets and not required
