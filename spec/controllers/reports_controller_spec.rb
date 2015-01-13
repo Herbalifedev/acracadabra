@@ -8,7 +8,7 @@ describe ReportsController do
   context 'given a report' do
 
     before do
-      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("username:password")
+      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{Rails.configuration.http_basic_auth_name}:#{Rails.configuration.http_basic_auth_password}")
       #post :create, ANDROID_VERSION: "2.1", APP_PACKAGE: "com.drivescribe"
       post 'create', {report: {PHONE_MODEL: 'rspec'}}, :format => 'json'
     end
@@ -21,7 +21,7 @@ describe ReportsController do
 
   context 'GET charts' do
     it 'returns http success' do
-      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("username:password")
+      @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{Rails.configuration.http_basic_auth_name}:#{Rails.configuration.http_basic_auth_password}")
       visit 'charts'
       response.status.should eq(200)
     end
