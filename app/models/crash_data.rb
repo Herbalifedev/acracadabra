@@ -28,7 +28,8 @@ class CrashData < ActiveRecord::Base
                   :user_app_start_date,
                   :user_comment,
                   :user_crash_date,
-                  :user_email
+                  :user_email,
+                  :settings_global
 
   self.per_page = 10
 end
