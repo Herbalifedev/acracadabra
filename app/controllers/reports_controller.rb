@@ -7,8 +7,6 @@ class ReportsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
 
-  http_basic_authenticate_with name: Rails.configuration.http_basic_auth_name, password: Rails.configuration.http_basic_auth_password
-
   def create
     begin
       #recipients = Rails.configuration.recipients
