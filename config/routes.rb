@@ -12,6 +12,8 @@ Acrar::Application.routes.draw do
 
   match 'reports' => 'reports#index', via: :get
 
+  resources :crash_data do as_routes end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

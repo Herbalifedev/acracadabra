@@ -11,6 +11,7 @@ gem 'will_paginate'
 gem 'chartkick'
 gem 'groupdate'
 gem 'therubyracer', :require => 'v8'
+gem 'active_scaffold'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
