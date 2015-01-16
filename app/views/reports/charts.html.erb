@@ -1,5 +1,26 @@
 <h1 class="center">Android Crash Report charts</h1>
 
+<span class='clearfix'>
+  <form class='form-search pull-left' style='margin: 16px 0px 0px 16px;'>
+    <div class='input-append'>
+      <input class='span2 search-query datepicker' id='since' name='since' placeholder='yyyy-mm-dd' type='text' value="<%= @since %>">
+       -
+      <input class='span2 search-query datepicker' id='until' name='until' placeholder='yyyy-mm-dd' type='text' value="<%= @until %>">
+      <button class='btn' type='submit'>Filter</button>
+      <button class="btn" type="reset">Reset</button>
+      <button class="btn" onClick="javascript: clearAll();">Clear</a>
+    </div>
+    <script type="text/javascript">
+      function clearAll() {
+        $('#since').val('');
+        $('#until').val('');
+      }
+    </script>
+  </form>
+</span>
+
+<br/>
+
 <h3>By phone models</h3>
 <%= pie_chart @per_phone_model %>
 
@@ -11,3 +32,9 @@
 
 <h3>By Month</h3>
 <%= bar_chart @per_month %>
+
+<script type="text/javascript">
+  $(document).ready( function() {
+    $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+  } );
+</script>

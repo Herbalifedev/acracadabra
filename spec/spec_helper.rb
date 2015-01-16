@@ -36,3 +36,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+module AuthHelper
+  def env
+    {"HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials(Rails.configuration.http_basic_auth_name,Rails.configuration.http_basic_auth_password)}
+  end
+end

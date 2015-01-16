@@ -8,7 +8,7 @@ describe "crash_data/index" do
     ])
   end
 
-  it "renders a list of crash_data" do
+  xit "renders a list of crash_data" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
   end
