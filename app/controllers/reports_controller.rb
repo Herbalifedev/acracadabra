@@ -65,6 +65,9 @@ class ReportsController < ApplicationController
     @per_date = data.group_by_day(:created_at).count unless data.empty?
     @per_month = data.group_by_month(:created_at).count unless data.empty?
     @per_hour = data.group_by_hour_of_day(:created_at).count unless data.empty?
+
+    @since = params[:since]
+    @until = params[:until]
   end
 
 end

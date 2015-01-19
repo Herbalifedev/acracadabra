@@ -20,11 +20,16 @@ describe ReportsController do
   end
 
   context 'GET charts' do
-    it 'returns http success' do
+
+    before do
       @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{Rails.configuration.http_basic_auth_name}:#{Rails.configuration.http_basic_auth_password}")
-      visit 'charts'
+      get 'charts'
+    end
+
+    it 'returns http success' do
       response.status.should eq(200)
     end
+
   end
 
 end

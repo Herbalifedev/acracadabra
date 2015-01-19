@@ -5,7 +5,7 @@ describe "crash_data/new" do
     assign(:crash_data, stub_model(CrashData).as_new_record)
   end
 
-  it "renders new crash_data form" do
+  xit "renders new crash_data form" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
