@@ -26,6 +26,7 @@ class ReportsController < ApplicationController
           crash_data.custom_data = processed[:custom_data].inspect if processed[:custom_data]
           crash_data.initial_configuration = processed[:initial_configuration].inspect if processed[:initial_configuration]
           crash_data.environment = processed[:environment].inspect if processed[:environment]
+          crash_data.user_crash_date = Time.now unless crash_data.user_crash_date
           crash_data.save!
         end
       else
@@ -62,9 +63,9 @@ class ReportsController < ApplicationController
   def charts
     data = ReportQuery.new(params, false).results
     @per_phone_model = data.group(:phone_model).count unless data.empty?
-    @per_date = data.group_by_day(:created_at).count unless data.empty?
-    @per_month = data.group_by_month(:created_at).count unless data.empty?
-    @per_hour = data.group_by_hour_of_day(:created_at).count unless data.empty?
+    @per_date = data.group_by_day(:user_crash_date).count unless data.empty?
+    @per_month = data.group_by_month(:user_crash_date).count unless data.empty?
+    @per_hour = data.group_by_hour_of_day(:user_crash_date).count unless data.empty?
 
     @since = params[:since]
     @until = params[:until]
