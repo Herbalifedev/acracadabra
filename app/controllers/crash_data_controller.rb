@@ -43,5 +43,7 @@ class CrashDataController < ApplicationController
 
     columns[:user_crash_date].label = 'User Crash Date'
     columns[:user_crash_date].description = 'User Crash Date'
+
+    columns[:user_crash_date].form_ui = :datetime_picker
   end
 end
