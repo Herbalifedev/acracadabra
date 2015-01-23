@@ -1,7 +1,8 @@
 # Copyright (c) 2012 Livefront, Inc.
 # See the file license.txt for copying permission.
-require 'queries/ReportQuery'
-require 'services/PaginationService'
+require 'queries/report_query'
+require 'services/pagination_service'
+require 'params_cleaners/crash_data_params_cleaner'
 
 class ReportsController < ApplicationController
 
@@ -11,9 +12,11 @@ class ReportsController < ApplicationController
     begin
       #recipients = Rails.configuration.recipients
       #ReportMailer.report(recipients, params).deliver
-      raise "Invalid params #{params[:report].inspect}" unless params[:report]
-      processed = params[:report].inject({}) {|newhash, (k, v)| newhash[k.downcase.to_sym]=v; newhash}
-      if processed
+      raise "Invalid params #{params[:report].inspect}" unless params[:report].present?
+      downcased = params[:report].inject({}) {|newhash, (k, v)| newhash[k.downcase.to_sym]=v; newhash}
+      cleaned = CrashDataParamsCleaner.new(downcased, CrashData).clean
+      processed = cleaned
+      if processed.present?
         CrashData.new do |crash_data|
           crash_data.update_attributes(processed)
           crash_data.settings_global = processed[:settings_global].inspect if processed[:settings_global]
@@ -30,13 +33,13 @@ class ReportsController < ApplicationController
           crash_data.save!
         end
       else
-        raise "Invalid data. #{processed.inspect}"
+        raise "Invalid data. #{params[:report]}"
       end
       head :created
     rescue Exception => @error
       respond_to do |format|
         format.json do
-          render :json => { error: { message: @error.inspect, code: 10001 } }, :status => 499
+          render :json => { error: { message: @error.message, code: 10001 } }, :status => 499
         end
       end
     end
@@ -54,7 +57,7 @@ class ReportsController < ApplicationController
     rescue Exception => @error
       respond_to do |format|
         format.json do
-          render :json => { error: { message: @error.inspect, code: 10001 } }, :status => 499
+          render :json => { error: { message: @error.message, code: 10001 } }, :status => 499
         end
       end
     end
