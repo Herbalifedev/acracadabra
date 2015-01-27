@@ -65,10 +65,21 @@ class ReportsController < ApplicationController
 
   def charts
     data = ReportQuery.new(params, false).results
-    @per_phone_model = data.group(:phone_model).count unless data.empty?
-    @per_date = data.group_by_day(:user_crash_date).count unless data.empty?
-    @per_month = data.group_by_month(:user_crash_date).count unless data.empty?
-    @per_hour = data.group_by_hour_of_day(:user_crash_date).count unless data.empty?
+    unless data.empty?
+      @per_phone_model = data.group(:phone_model).count
+
+      @per_date = data.group_by_day(:user_crash_date).count
+      @androidversion_per_date = data.group(:android_version).group_by_day(:user_crash_date).count
+      @product_per_date = data.group(:product).group_by_day(:user_crash_date).count
+      @brand_per_date = data.group(:brand).group_by_day(:user_crash_date).count
+
+      @per_month = data.group_by_month(:user_crash_date).count
+      @androidversion_per_month = data.group(:android_version).group_by_month(:user_crash_date).count
+      @product_per_month = data.group(:product).group_by_month(:user_crash_date).count
+      @brand_per_month = data.group(:brand).group_by_month(:user_crash_date).count
+
+      @per_hour = data.group_by_hour_of_day(:user_crash_date).count
+    end
 
     @since = params[:since]
     @until = params[:until]

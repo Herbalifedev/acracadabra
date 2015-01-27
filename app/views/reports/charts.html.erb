@@ -21,17 +21,40 @@
 
 <br/>
 
-<h3>By phone models</h3>
-<%= pie_chart @per_phone_model %>
+<h3><%= link_to_function 'By phone models', "$('#byphone').toggle()" %></h3>
+<div cellpadding="2" id="byphone">
+  <%= pie_chart @per_phone_model %>
+</div>
 
-<h3>By Hour</h3>
-<%= column_chart @per_hour %>
+<h3><%= link_to_function 'By Hour', "$('#byhour').toggle()" %></h3>
+<div cellpadding="2" id="byhour">
+  <%= column_chart @per_hour %>
+  <div align="center">All</div>
+</div>
 
-<h3>By Day</h3>
-<%= line_chart @per_date %>
+<h3><%= link_to_function 'By Day', "$('#byday').toggle()" %></h3>
+<div cellpadding="2" id="byday">
+  <%= line_chart @per_date %>
+  <div align="center">All</div>
+  <%= line_chart @androidversion_per_date %>
+  <div align="center">Android Version</div>
+  <%= line_chart @product_per_date %>
+  <div align="center">Product</div>
+  <%= line_chart @brand_per_date %>
+  <div align="center">Brand</div>
+</div>
 
-<h3>By Month</h3>
-<%= bar_chart @per_month %>
+<h3><%= link_to_function 'By Month', "$('#bymonth').toggle()" %></h3>
+<div cellpadding="2" id="bymonth">
+  <%= bar_chart @per_month %>
+  <div align="center">All</div>
+  <%= bar_chart @androidversion_per_month %>
+  <div align="center">Android Version</div>
+  <%= bar_chart @product_per_month %>
+  <div align="center">Product</div>
+  <%= bar_chart @brand_per_month %>
+  <div align="center">Brand</div>
+</div>
 
 <script type="text/javascript">
   $(document).ready( function() {

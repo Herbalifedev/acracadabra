@@ -3,9 +3,9 @@
 
 require 'spec_helper'
 
-describe ReportsController do
-  let(:authenticated) { @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{Rails.configuration.http_basic_auth_name}:#{Rails.configuration.http_basic_auth_password}") }
+include AuthHelper
 
+describe ReportsController do
   describe 'POST /reports (create)' do
     context 'when request does not have proper authentication' do
       it 'returns 401' do
@@ -17,7 +17,7 @@ describe ReportsController do
 
     context 'when request has proper authentication' do
       before do
-        authenticated
+        env
       end
 
       context 'when valid request data is sent' do
@@ -61,7 +61,7 @@ describe ReportsController do
 
     context 'when request has proper authentication' do
       before do
-        authenticated
+        env
       end
 
       context 'when there is already a record created' do
@@ -118,7 +118,7 @@ describe ReportsController do
 
     context 'when request has proper authentication' do
       before do
-        authenticated
+        env
         get 'charts'
       end
 
