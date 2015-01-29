@@ -1,0 +1,65 @@
+%h1.center Android Crash Report charts
+
+%span.clearfix
+  %form.form-search.pull-left{style: '16px 0px 0px 16px;'}
+    %div.input-append
+      %input.span2.search-query.datepicker{id: 'since', name:'since', placeholder:'yyyy-mm-dd', type:'text', value: "#{@since}"}
+      '-'
+      %input.span2.search-query.datepicker{id: 'until', name: 'until', placeholder:'yyyy-mm-dd', type: 'text', value: "#{@until}"}
+      %button.btn{type: 'submit'} Filter
+      %button.btn{type: 'reset'} Reset
+      %button.btn{onClick: 'javascript: clearAll();'} Clear
+
+      :javascript
+        function clearAll() {
+          $('#since').val('');
+          $('#until').val('');
+        }
+
+%br
+
+%h3
+  = link_to_function 'By phone models', "$('#byphone').toggle()"
+#byphone
+  = pie_chart @per_phone_model
+
+%h3
+  = link_to_function 'By Hour', "$('#byhour').toggle()"
+#byhour
+  = column_chart @per_hour
+  %div{align: 'center'} All
+
+%h3
+  = link_to_function 'By Day', "$('#byday').toggle()"
+#byday
+  = line_chart @per_date
+  %div{align: 'center'} All
+
+  = line_chart @androidversion_per_date
+  %div{align: 'center'} Android Version
+
+  = line_chart @product_per_date
+  %div{align: 'center'} Product
+
+  = line_chart @brand_per_date
+  %div{align: 'center'} Brand
+
+%h3
+  = link_to_function 'By Month', "$('#bymonth').toggle()"
+#bymonth
+  = bar_chart @per_month
+  %div{align: 'center'} All
+
+  = bar_chart @androidversion_per_month
+  %div{align: 'center'} Android Version
+
+  = bar_chart @product_per_month
+  %div{align: 'center'} Product
+
+  = bar_chart @brand_per_month
+  %div{align: 'center'} Brand
+
+:javascript
+  %(document).ready( function() {
+    $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+  });
