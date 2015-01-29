@@ -1,7 +1,7 @@
 # Copyright (c) 2012 Livefront, Inc.
 # See the file license.txt for copying permission.
 
-require 'spec_helper'
+require 'rails_helper'
 
 include AuthHelper
 
@@ -86,7 +86,7 @@ describe ReportsController do
 
       context 'when something is wrong while processing the request' do
         before do
-          ReportQuery.stub(:new) { raise Exception, 'Simulated error' }
+          allow(ReportQuery).to receive(:new) { raise Exception, 'Simulated error' }
           get 'index', :format => :json, :accept => :json
         end
 

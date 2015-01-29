@@ -1,7 +1,7 @@
 # Copyright (c) 2012 Livefront, Inc.
 # See the file license.txt for copying permission.
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe "welcome/home" do
 
@@ -27,7 +27,7 @@ describe "welcome/home" do
       }
 
       it "should display an error" do
-        rendered.should have_selector 'h1.error'
+        expect(rendered).to have_selector 'h1.error'
       end
 
     end
@@ -40,7 +40,7 @@ describe "welcome/home" do
       }
 
       it "should display an error" do
-        rendered.should have_selector 'h1.error'
+        expect(rendered).to have_selector 'h1.error'
       end
     end
 
@@ -54,11 +54,11 @@ describe "welcome/home" do
     end
 
     it "should display success" do
-      rendered.should_not have_selector 'h1.error'
+      expect(rendered).to_not have_selector 'h1.error'
     end
 
     it "should provide instructions on Android app setup" do
-      rendered.should have_content "Configuring your Android app"
+      expect(rendered).to have_content "Configuring your Android app"
     end
 
   end

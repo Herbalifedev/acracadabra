@@ -1,23 +1,23 @@
 # Copyright (c) 2012 Livefront, Inc.
 # See the file license.txt for copying permission.
 
-require "spec_helper"
+require "rails_helper"
 
 describe ReportMailer do
-  
+
   subject { ReportMailer }
 
   context 'report' do
     it 'should send an email with the report' do
       params = { APP_VERSION: '1.0', APP_PACKAGE: 'com.example' }
-      subject.report('foo@bar.com', params).deliver
+      subject.report('foo@bar.com', params).deliver_now
       email = ActionMailer::Base.deliveries.last
-      email.to.should == ['foo@bar.com']
-      email.subject.should include('Android App Crash')
-      email.body.should include("APP_VERSION")
-      email.body.should include("1.0")
-      email.body.should include("APP_PACKAGE")
-      email.body.should include("com.example")
+      expect(email.to).to include 'foo@bar.com'
+      expect(email.subject).to include('Android App Crash')
+      expect(email.body).to include("APP_VERSION")
+      expect(email.body).to include("1.0")
+      expect(email.body).to include("APP_PACKAGE")
+      expect(email.body).to include("com.example")
     end
   end
 

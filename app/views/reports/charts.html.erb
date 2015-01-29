@@ -1,38 +1,37 @@
 <h1 class="center">Android Crash Report charts</h1>
 
-<span class='clearfix'>
-  <form class='form-search pull-left' style='margin: 16px 0px 0px 16px;'>
-    <div class='input-append'>
-      <input class='span2 search-query datepicker' id='since' name='since' placeholder='yyyy-mm-dd' type='text' value="<%= @since %>">
-       -
-      <input class='span2 search-query datepicker' id='until' name='until' placeholder='yyyy-mm-dd' type='text' value="<%= @until %>">
+<div class="col-md-12">
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="sr-only" for="dateSince">Since</label>
+      <input class='form-control datepicker' id='since' name='since' placeholder='yyyy-mm-dd' type='text' value="<%= @since %>">
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="dateUntil">Until</label>
+      <input class='form-control datepicker' id='until' name='until' placeholder='yyyy-mm-dd' type='text' value="<%= @until %>">
+    </div>
+    <div class="form-group">
       <button class='btn' type='submit'>Filter</button>
       <button class="btn" type="reset">Reset</button>
-      <button class="btn" onClick="javascript: clearAll();">Clear</a>
+      <button class="btn" onClick="javascript: clearAll();">Clear</button>
     </div>
-    <script type="text/javascript">
-      function clearAll() {
-        $('#since').val('');
-        $('#until').val('');
-      }
-    </script>
   </form>
-</span>
+</div>
 
 <br/>
 
-<h3><%= link_to_function 'By phone models', "$('#byphone').toggle()" %></h3>
+<h3><%= link_to 'By Phone', 'javascript:void(0)', {'class' => 'toggleChart', 'data-chart' => 'byphone'} %></h3>
 <div cellpadding="2" id="byphone">
   <%= pie_chart @per_phone_model %>
 </div>
 
-<h3><%= link_to_function 'By Hour', "$('#byhour').toggle()" %></h3>
+<h3><%= link_to 'By Hour', "javascript:void(0);", {'class' => 'toggleChart', 'data-chart' => 'byhour'} %></h3>
 <div cellpadding="2" id="byhour">
   <%= column_chart @per_hour %>
   <div align="center">All</div>
 </div>
 
-<h3><%= link_to_function 'By Day', "$('#byday').toggle()" %></h3>
+<h3><%= link_to 'By Day', "javascript:void(0);", {'class' => 'toggleChart', 'data-chart' => 'byday'} %></h3>
 <div cellpadding="2" id="byday">
   <%= line_chart @per_date %>
   <div align="center">All</div>
@@ -44,7 +43,7 @@
   <div align="center">Brand</div>
 </div>
 
-<h3><%= link_to_function 'By Month', "$('#bymonth').toggle()" %></h3>
+<h3><%= link_to 'By Month', "javascript:void(0);", {'class' => 'toggleChart', 'data-chart' => 'bymonth'} %></h3>
 <div cellpadding="2" id="bymonth">
   <%= bar_chart @per_month %>
   <div align="center">All</div>
@@ -56,8 +55,13 @@
   <div align="center">Brand</div>
 </div>
 
-<script type="text/javascript">
-  $(document).ready( function() {
+<script charset="utf-8">
+  jQuery(document).ready(function() {
     $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-  } );
+  });
+
+  function clearAll() {
+    $('#since').val('');
+    $('#until').val('');
+  }
 </script>

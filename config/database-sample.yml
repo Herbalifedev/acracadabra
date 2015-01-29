@@ -2,20 +2,14 @@
 # speed up local dev setup. It is recommended that you switch to
 # postgresql to ensure consistency between dev, test and production
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  database: development
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  database: test
 
 # This will be overwritten during deployment to Heroku and is here for Rake tasks.
 production:
   adapter: postgresql
-  database: acracadabra_production
-  pool: 5
-  timeout: 5000
+  database: production

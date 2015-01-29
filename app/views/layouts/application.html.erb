@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>acracadabra</title>
+    <title>Android Crash Report</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
@@ -12,7 +12,7 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <%= yield %>
-      <%= render 'layouts/footer' %>
     </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
