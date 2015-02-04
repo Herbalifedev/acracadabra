@@ -1,6 +1,6 @@
 # Acracadabra
 
-Android crash reports. Detailed. Fast. Direct to your inbox. [Why?](http://livefront.github.com/acracadabra)
+Android crash reports. Detailed. Fast. Direct to your inbox or stored in a database. [Why?](http://livefront.github.com/acracadabra)
 
 ## Contents
 
@@ -14,7 +14,10 @@ Android crash reports. Detailed. Fast. Direct to your inbox. [Why?](http://livef
 <a name="overview"></a>
 ## Overview
 
-Acracadabra is a Rails app that receives [ACRA](https://github.com/ACRA/acra)-generated crash reports from Android applications and passes them directly to your email inbox. What's ACRA?
+Acracadabra is a Rails app that receives [ACRA](https://github.com/ACRA/acra)-generated crash reports from Android applications and
+- passes them directly to your email inbox or
+- stores them in a database, viewable from the web.
+What's ACRA?
 
 > ...a library enabling Android Application to automatically post their crash reports to a GoogleDoc form. It is targetted to Android applications developers to help them get data from their applications when they crash or behave erroneously.
 
@@ -29,8 +32,8 @@ Follow the steps below. You can be up and running in under 20 minutes.
 
 * See the [Gemfile](https://github.com/livefront/acracadabra/blob/master/Gemfile)
 * Ruby 1.9.3
-* Rails 3.2.8
-* [Heroku Toolbelt](https://toolbelt.heroku.com/)
+* Rails 3.2.21
+* [Heroku Toolbelt](https://toolbelt.heroku.com/) (optional)
 
 <a name="setup"></a>
 ## Setup
@@ -60,16 +63,18 @@ If you do not have a GitHub account, you can [download the source](https://githu
 
         $ rspec
 
-4. Specify 'from' address and report recipients in the `.env` file.  Example:
+4. Specify 'from' address, report recipients and basic authentication credentials in the `.env` file.  Example:
 
         FROM_ADDRESS=jeremy@livefront.com
         RECIPIENTS=jeremy@livefront.com
+        HTTP_BASIC_AUTH_NAME=myusername
+        HTTP_BASIC_AUTH_PASSWORD=please
 
 5. Fire it up:
 
         $ foreman start
 
-    [Foreman](https://github.com/ddollar/foreman) is used because of its ability to easily set environment variables with the `.env` file. 
+    [Foreman](https://github.com/ddollar/foreman) is used because of its ability to easily set environment variables with the `.env` file.
 
 5. Confirm the dev server is running and configured properly
 
@@ -116,7 +121,7 @@ If you do not have a GitHub account, you can [download the source](https://githu
 
             # root :to => 'welcome#home'
             root :to => 'welcome#not_found'
-            
+
 <a name="android-config"></a>
 ## Configuring your Android app
 
@@ -135,13 +140,13 @@ If you do not have a GitHub account, you can [download the source](https://githu
         public class MyApplication extends Application {
         }
     and update `AndroidManifest.xml` to use your new Application subclass:
-       
+
         ...
         <application android:icon="@drawable/icon" android:label="@string/app_name"
             android:name="MyApplication">
         ...
 
-2. Add the `ReportsCrashes` annotation to your Application subclass.  `formKey` will be ignored. Set the value of `formUri` to the `reports` path of your acracadabra service.
+2. Add the `ReportsCrashes` annotation to your Application subclass.  `formKey` will be ignored. Set the value of `formUri`, `formUriBasicAuthLogin`, `formUriBasicAuthPassword` to the `reports` path of your acracadabra service. `reportType` must be JSON and `disableSSLCertValidation` is set to true if self-signed certificate is used.
 
         ...
         import org.acra.ACRA;
@@ -149,12 +154,16 @@ If you do not have a GitHub account, you can [download the source](https://githu
         ...
 
         @ReportsCrashes(formKey = "",
-                        formUri = "http://<acracadabra_hostname_and_port>/reports")
+                        formUri = "http://<acracadabra_hostname_and_port>/reports",
+                        formUriBasicAuthLogin = "myusername",
+                        formUriBasicAuthPassword = "please",
+                        reportType = HttpSender.Type.JSON,
+                        disableSSLCertValidation = true)
         public class MyApplication extends Application {
         }
 
 3. Initialize ACRA in `onCreate()`
-  
+
         @Override
         public void onCreate() {
             ACRA.init(this);
@@ -174,6 +183,6 @@ If you do not have a GitHub account, you can [download the source](https://githu
 <a href="#license"></a>
 ## License
 
-Acradabra is released under the [MIT license](http://www.opensource.org/licenses/MIT).      
+Acradabra is released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
 Copyright (c) 2012 [Livefront, Inc](http://livefront.com).  
