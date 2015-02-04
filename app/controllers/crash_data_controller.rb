@@ -25,7 +25,7 @@ class CrashDataController < ApplicationController
                          :available_mem_size,
                          :created_at,
                          :updated_at
-    list.sorting = {:android_version => 'ASC'}
+    list.sorting = {:created_at => 'DESC'}
 
     config.field_search.columns = :user_crash_date, :phone_model, :product, :brand
 
