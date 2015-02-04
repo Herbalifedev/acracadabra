@@ -15,12 +15,11 @@ gem 'therubyracer', :require => 'v8'
 gem 'active_scaffold'
 gem 'activeresource'
 gem 'protected_attributes'
+gem 'sass-rails',   '~> 5.0.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.1.0'
-  #gem 'foreman'
   gem 'capybara'
-  # gem 'sqlite3', '1.3.5'
   gem 'shotgun'
 end
 
@@ -36,7 +35,6 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 5.0.1'
   gem 'coffee-rails', '~> 4.1.0'
   gem 'uglifier', '>= 2.7.0'
 end
