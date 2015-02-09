@@ -27,7 +27,9 @@ class CrashDataController < ApplicationController
                          :updated_at
     list.sorting = {:created_at => 'DESC'}
 
-    config.field_search.columns = :user_crash_date, :phone_model, :product, :brand
+    config.field_search.columns = :user_crash_date, :phone_model, :product, :brand, :stack_trace
+
+    config.columns[:stack_trace].search_ui = :range
 
     columns[:android_version].label = 'AV'
     columns[:android_version].description = 'Android Version'
