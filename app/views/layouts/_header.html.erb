@@ -5,8 +5,8 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li> <%= link_to 'Charts', reports_charts_path, {class: 'active'} %> </li>
-        <li> <%= link_to 'Crash Data', crash_data_path, {class: 'active'} %> </li>
+        <%= navbar_header_link('Charts', reports_charts_path, 'reports') %>
+        <%= navbar_header_link('Crash Data', crash_data_path, 'crash_data') %>
       </ul>
     </div>
   </div>
